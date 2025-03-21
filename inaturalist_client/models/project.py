@@ -21,6 +21,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing_extensions import Self
 
+from inaturalist_client.models.project_observation_rule import ProjectObservationRule
+
 
 class Project(BaseModel):
     """
@@ -31,6 +33,7 @@ class Project(BaseModel):
     title: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     slug: Optional[StrictStr] = None
+    project_observation_rules: Optional[List[ProjectObservationRule]] = None
     __properties: ClassVar[List[str]] = ["id", "title", "description", "slug"]
 
     model_config = ConfigDict(

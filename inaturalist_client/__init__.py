@@ -137,6 +137,7 @@ from inaturalist_client.models.post_vote import PostVote
 from inaturalist_client.models.project import Project
 from inaturalist_client.models.project_member import ProjectMember
 from inaturalist_client.models.project_members_response import ProjectMembersResponse
+from inaturalist_client.models.project_observation_rule import ProjectObservationRule
 from inaturalist_client.models.projects_response import ProjectsResponse
 from inaturalist_client.models.put_flag import PutFlag
 from inaturalist_client.models.put_flag_flag import PutFlagFlag
@@ -153,6 +154,7 @@ from inaturalist_client.models.taxa_autocomplete_response import (
     TaxaAutocompleteResponse,
 )
 from inaturalist_client.models.taxa_show_response import TaxaShowResponse
+from inaturalist_client.models.taxon import Taxon
 from inaturalist_client.models.taxon_conservation_status import TaxonConservationStatus
 from inaturalist_client.models.taxon_photo import TaxonPhoto
 from inaturalist_client.models.update_project_observation import (
