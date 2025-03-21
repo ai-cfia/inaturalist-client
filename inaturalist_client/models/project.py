@@ -21,6 +21,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing_extensions import Self
 
+from inaturalist_client.models.project_observation_rule import ProjectObservationRule
+
 
 class Project(BaseModel):
     """
@@ -31,7 +33,14 @@ class Project(BaseModel):
     title: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     slug: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "title", "description", "slug"]
+    project_observation_rules: Optional[List[ProjectObservationRule]] = None
+    __properties: ClassVar[List[str]] = [
+        "id",
+        "title",
+        "description",
+        "slug",
+        "project_observation_rules",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,6 +79,13 @@ class Project(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in project_observation_rules (list)
+        _items = []
+        if self.project_observation_rules:
+            for _item_project_observation_rule in self.project_observation_rules:
+                if _item_project_observation_rule:
+                    _items.append(_item_project_observation_rule.model_dump())
+            _dict["project_observation_rules"] = _items
         return _dict
 
     @classmethod
@@ -87,6 +103,12 @@ class Project(BaseModel):
                 "title": obj.get("title"),
                 "description": obj.get("description"),
                 "slug": obj.get("slug"),
+                "project_observation_rules": [
+                    ProjectObservationRule.model_validate(_item)
+                    for _item in obj["project_observation_rules"]
+                ]
+                if obj.get("comments") is not None
+                else None,
             }
         )
         return _obj
