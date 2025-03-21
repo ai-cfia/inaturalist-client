@@ -107,7 +107,7 @@ class Project(BaseModel):
                     ProjectObservationRule.model_validate(_item)
                     for _item in obj["project_observation_rules"]
                 ]
-                if obj.get("comments") is not None
+                if obj.get("project_observation_rules") is not None
                 else None,
             }
         )
