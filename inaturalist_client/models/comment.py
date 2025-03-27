@@ -19,7 +19,7 @@ import re  # noqa: F401
 from datetime import datetime
 from typing import Any, ClassVar, Dict, List, Optional, Set
 
-from pydantic import BaseModel, ConfigDict, StrictInt
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing_extensions import Self
 
 from inaturalist_client.models.date_details import DateDetails
@@ -32,11 +32,13 @@ class Comment(BaseModel):
     """  # noqa: E501
 
     id: Optional[StrictInt] = None
+    body: Optional[StrictStr] = None
     created_at: Optional[datetime] = None
     created_at_details: Optional[DateDetails] = None
     user: Optional[User] = None
     __properties: ClassVar[List[str]] = [
         "id",
+        "body",
         "created_at",
         "created_at_details",
         "user",
@@ -99,6 +101,7 @@ class Comment(BaseModel):
         _obj = cls.model_validate(
             {
                 "id": obj.get("id"),
+                "body": obj.get("body"),
                 "created_at": obj.get("created_at"),
                 "created_at_details": DateDetails.from_dict(obj["created_at_details"])
                 if obj.get("created_at_details") is not None
